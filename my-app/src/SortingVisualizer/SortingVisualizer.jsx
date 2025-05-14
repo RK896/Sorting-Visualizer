@@ -17,7 +17,7 @@ export default class SortingVisualizer extends React.Component {
     newArray() {
         const arr = [];
         for(let i = 0; i < 100; i++) {
-            arr.push(randomIntFromInterval(8, 2000));
+            arr.push(randomInt(8, 2000));
         }
         this.setState({arr});
     }
@@ -26,12 +26,23 @@ export default class SortingVisualizer extends React.Component {
         const {arr} = this.state;
 
         return (
+        <div className="array-container">
             {arr.map((val, index) => (
-            <div className="">
-
+            <div
+                className="array-bar" 
+                key={index}
+                style = {{height: `${val}px`}}
+                >
             </div>    
-        ))}
+            ))}
+        </div>
                 
         )
     }
+
+    
+}
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
