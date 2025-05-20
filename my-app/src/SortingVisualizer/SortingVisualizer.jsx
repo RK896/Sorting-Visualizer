@@ -1,11 +1,6 @@
 import React from "react";
 import './SortingVisualizer.css'
-import {
-    mergeSort as mergeSortAlgo,
-    bubbleSort as bubbleSortAlgo,
-    quickSort as quickSortAlgo,
-    heapSort as heapSortAlgo
-  } from './SortingAlgorithms.js';
+import {mergeSort, bubbleSort, quickSort, heapSort, getSortAnimations} from './SortingAlgorithms.js';
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -29,8 +24,8 @@ export default class SortingVisualizer extends React.Component {
     }
 
     mergeSort() {
-        const sorted = mergeSortAlgo(this.state.arr);
-        this.setState({arr:sorted})
+        const animations = getSortAnimations(this.state.arr, mergeSort);
+        animate(animations)
 
     }
 
@@ -76,3 +71,29 @@ export default class SortingVisualizer extends React.Component {
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+function animate(animations) {
+    const arrayBars = document.getElementsByClassName("array-bar")
+    const ANIMATION_SPEED = 10;
+
+    for (let i = 0; i < animations.length; i++) {
+        const animation = animations[i];
+        const [action, index1, index2, newHeight] = animation;
+
+        if (action === "compare") {
+            setTimeout(() => {
+                arrayBars[index1].style.backgroundColor = "red";
+                arrayBars[index2].style.backgroundColor = "red";
+            }, i * ANIMATION_SPEED)
+
+            setTimeout(() => {
+                arrayBars[index1].style.backgroundColor = 'cyan'
+                arrayBars[index2].style.backgroundColor = 'cyan'
+            }, (i + 1) * ANIMATION_SPEED); 
+        } else if (action === 'overwrite') {
+            setTimeout(() => {
+                arrayBars[index1].style.height = `${newHeight}px`;
+            }, i * ANIMATION_SPEED);
+        }
+    }
+};
