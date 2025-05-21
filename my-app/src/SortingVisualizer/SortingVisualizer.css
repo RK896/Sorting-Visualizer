@@ -1,13 +1,30 @@
-
 .array-bar {
-    width: 7px;
-    background-color: peachpuff;
-    display:inline-block;
-    margin: 0 1px;
-    transition: tranform 0.2s ease;
+  width: 7px;
+  background-color: peachpuff;
+  display: inline-block;
+  margin: 0 1px;
+  transition: tranform 1s ease;
 }
 
 .array-container {
-    position: absolute;
-    
+  position: relative;
+}
+
+.header {
+  display: block;
+  background-color: navajowhite;
+  min-width: 100%;
+  text-align: center;
+  height: 10vh;
+  padding: 3rem;
+}
+
+.button {
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin-inline: 5px;
+}
+
+.buttons {
+  display: inline;
 }
