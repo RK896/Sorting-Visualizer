@@ -5,6 +5,12 @@ export function mergeSort (arr, animations) {
     mergeSortHelper(arr, 0, arr.length-1, auxArray, animations);
 }
 
+export function bubbleSort(arr, animations) {
+    if (arr.length <= 1) return;
+    const auxArray = arr.slice();
+    // bubbleSortHelper(arr, )
+}
+
 function mergeSortHelper(mainArray, startIndex, endIndex, auxArray, animations) {
     if (startIndex === endIndex) return;
     const middle = Math.floor((startIndex + endIndex) / 2);
