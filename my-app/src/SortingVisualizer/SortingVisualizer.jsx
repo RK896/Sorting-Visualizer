@@ -84,7 +84,10 @@ export default class SortingVisualizer extends React.Component {
             <div
               className="array-bar"
               key={index}
-              style={{ height: `${val}px` }}
+              style={{
+                height: `${val}px`,
+                width: `{(window.innerWidth //${{ arr }.length}`,
+              }}
             ></div>
           ))}
         </div>
