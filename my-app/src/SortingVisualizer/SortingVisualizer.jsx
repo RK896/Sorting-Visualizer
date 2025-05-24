@@ -14,6 +14,7 @@ export default class SortingVisualizer extends React.Component {
 
     this.state = {
       arr: [],
+      isAnimating: false,
     };
   }
 
@@ -21,7 +22,8 @@ export default class SortingVisualizer extends React.Component {
     this.newArray();
   }
 
-  newArray(length) {
+  newArray(length = 20) {
+    if (this.state.isAnimating) return;
     const arr = [];
     for (let i = 0; i < length; i++) {
       arr.push(randomInt(8, 800));
@@ -30,8 +32,11 @@ export default class SortingVisualizer extends React.Component {
   }
 
   mergeSort() {
+    if (this.state.isAnimating) return;
     const animations = getSortAnimations(this.state.arr, mergeSort);
-    animate(animations);
+    this.setState({ isAnimating: true }, () => {
+      animate(animations, () => this.setState({ isAnimating: false }));
+    });
   }
 
   bubbleSort() {}
@@ -42,9 +47,13 @@ export default class SortingVisualizer extends React.Component {
 
   render() {
     const { arr } = this.state;
+    const barWidth = Math.max(
+      2,
+      Math.floor(window.innerWidth / arr.length) - 2
+    );
 
     return (
-      <div>
+      <div className="app-container">
         <div className="header">
           <h1>Sorting Algorithm Visualizer</h1>
           <div className="buttons">
@@ -73,10 +82,16 @@ export default class SortingVisualizer extends React.Component {
               min="10"
               max="100"
               value={arr.length}
-              class="slider"
+              className="slider"
               id="myRange"
+              disabled={this.state.isAnimating}
               onChange={(e) => this.newArray(parseInt(e.target.value))}
             ></input>
+            <p
+              style={{ marginTop: "5px", fontWeight: "bold", fontSize: "25px" }}
+            >
+              {arr.length}
+            </p>
           </div>
         </div>
         <div className="array-container">
@@ -86,7 +101,7 @@ export default class SortingVisualizer extends React.Component {
               key={index}
               style={{
                 height: `${val}px`,
-                width: `{(window.innerWidth //${{ arr }.length}`,
+                width: `${barWidth}px`,
               }}
             ></div>
           ))}
@@ -100,7 +115,7 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function animate(animations) {
+function animate(animations, onComplete) {
   const arrayBars = document.getElementsByClassName("array-bar");
   const ANIMATION_SPEED = 10;
 
@@ -115,8 +130,8 @@ function animate(animations) {
       }, i * ANIMATION_SPEED);
 
       setTimeout(() => {
-        arrayBars[index1].style.backgroundColor = "cyan";
-        arrayBars[index2].style.backgroundColor = "cyan";
+        arrayBars[index1].style.backgroundColor = "paleturquoise";
+        arrayBars[index2].style.backgroundColor = "paleturquoise";
       }, (i + 1) * ANIMATION_SPEED);
     } else if (action === "overwrite") {
       setTimeout(() => {
@@ -124,4 +139,8 @@ function animate(animations) {
       }, i * ANIMATION_SPEED);
     }
   }
+
+  setTimeout(() => {
+    onComplete();
+  }, animations.length * ANIMATION_SPEED + 10);
 }
