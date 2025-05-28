@@ -8,8 +8,27 @@ export function mergeSort(arr, animations) {
 export function bubbleSort(arr, animations) {
   if (arr.length <= 1) return;
   const auxArray = arr.slice();
-  // bubbleSortHelper(arr, )
+  const n = arr.length;
+
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      animations.push(["compare", j, j + 1]);
+
+      if (auxArray[j] > auxArray[j + 1]) {
+        let temp = auxArray[j + 1];
+        auxArray[j + 1] = auxArray[j];
+        auxArray[j] = temp;
+      }
+
+      animations.push(["overwrite", j, null, auxArray[j]]);
+      animations.push(["overwrite", j + 1, null, auxArray[j + 1]]);
+    }
+  }
+
+  return animations;
 }
+
+export function quickSort() {}
 
 function mergeSortHelper(
   mainArray,

@@ -39,7 +39,13 @@ export default class SortingVisualizer extends React.Component {
     });
   }
 
-  bubbleSort() {}
+  bubbleSort() {
+    if (this.state.isAnimating) return;
+    const animations = getSortAnimations(this.state.arr, bubbleSort);
+    this.setState({ isAnimating: true }, () => {
+      animate(animations, () => this.setState({ isAnimating: false }));
+    });
+  }
 
   quickSort() {}
 
