@@ -1,8 +1,9 @@
-export function mergeSort(arr, animations) {
-  if (arr.length <= 1) return;
-
-  const auxArray = arr.slice();
-  mergeSortHelper(arr, 0, arr.length - 1, auxArray, animations);
+export function getSortAnimations(array, sortAlgorithm) {
+  const animations = [];
+  if (array.length <= 1) return animations;
+  const arrayCopy = array.slice();
+  sortAlgorithm(arrayCopy, animations);
+  return animations;
 }
 
 export function bubbleSort(arr, animations) {
@@ -28,7 +29,37 @@ export function bubbleSort(arr, animations) {
   return animations;
 }
 
+export function selectionSort(arr, animations) {
+  if (arr.length <= 1) return;
+  let n = arr.length;
+  const auxArray = arr.slice();
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = n - 1; j > n - i - 1; j--) {
+      animations.push(["compare", j, j - 1]);
+
+      if (auxArray[j] < auxArray[j - 1]) {
+        let temp = auxArray[j - 1];
+        auxArray[j - 1] = auxArray[j];
+        auxArray[j] = temp;
+      }
+
+      animations.push(["overwrite", j, null, auxArray[j]]);
+      animations.push(["overwrite", j - 1, null, auxArray[j - 1]]);
+    }
+  }
+}
+
 export function quickSort() {}
+
+export function heapSort() {}
+
+export function mergeSort(arr, animations) {
+  if (arr.length <= 1) return;
+
+  const auxArray = arr.slice();
+  mergeSortHelper(arr, 0, arr.length - 1, auxArray, animations);
+}
 
 function mergeSortHelper(
   mainArray,
@@ -42,14 +73,6 @@ function mergeSortHelper(
   mergeSortHelper(auxArray, startIndex, middle, mainArray, animations);
   mergeSortHelper(auxArray, middle + 1, endIndex, mainArray, animations);
   merge(mainArray, startIndex, middle, endIndex, auxArray, animations);
-}
-
-export function getSortAnimations(array, sortAlgorithm) {
-  const animations = [];
-  if (array.length <= 1) return animations;
-  const arrayCopy = array.slice();
-  sortAlgorithm(arrayCopy, animations);
-  return animations;
 }
 
 function merge(

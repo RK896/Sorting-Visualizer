@@ -4,6 +4,7 @@ import {
   mergeSort,
   bubbleSort,
   quickSort,
+  selectionSort,
   heapSort,
   getSortAnimations,
 } from "./SortingAlgorithms.js";
@@ -47,6 +48,14 @@ export default class SortingVisualizer extends React.Component {
     });
   }
 
+  selectionSort() {
+    if (this.state.isAnimating) return;
+    const animations = getSortAnimations(this.state.arr, selectionSort);
+    this.setState({ isAnimating: true }, () => {
+      animate(animations, () => this.setState({ isAnimating: false }));
+    });
+  }
+
   quickSort() {}
 
   heapSort() {}
@@ -80,6 +89,9 @@ export default class SortingVisualizer extends React.Component {
             </button>
             <button className="button" onClick={() => this.quickSort()}>
               Quick Sort
+            </button>
+            <button className="button" onClick={() => this.selectionSort()}>
+              Selection Sort
             </button>
           </div>
           <div className="slider-container">
