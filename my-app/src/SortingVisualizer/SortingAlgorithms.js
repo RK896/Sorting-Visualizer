@@ -50,9 +50,9 @@ export function selectionSort(arr, animations) {
   }
 }
 
-export function quickSort() {}
+export function quickSort(arr, animations) {}
 
-export function heapSort() {}
+export function heapSort(arr, animations) {}
 
 export function mergeSort(arr, animations) {
   if (arr.length <= 1) return;
