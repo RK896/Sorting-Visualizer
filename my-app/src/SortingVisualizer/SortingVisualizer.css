@@ -1,14 +1,18 @@
 .array-bar {
-  width: 7px;
-  background-color: peachpuff;
+  background-color: #42a5f5;
+  border-radius: 4px 4px 0 0;
   display: inline-block;
   margin: 0 1px;
-  transition: tranform 1s ease;
+  transition: height 0.1s ease, background-color 0.1s ease;
+  height: 0;
+  width: 10px;
 }
 
 .array-container {
   position: relative;
   height: min-content;
+  white-space: nowrap;
+  overflow-x: auto;
   padding-top: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
@@ -21,32 +25,47 @@ body {
 }
 
 .header {
-  display: block;
-  background-color: paleturquoise;
+  background: linear-gradient(135deg, #64b5f6, #81c784);
+  color: white;
   text-align: center;
-  height: fit-content;
-  padding: 3rem;
-  box-sizing: border-box;
+  padding: 2rem 1rem;
+  border-bottom: 4px solid #4caf50;
+  font-family: "Poppins", sans-serif;
 }
 
 .slide-container {
   width: 100%;
 }
-
 .slider {
-  width: 150px;
-  height: 20px;
-  margin-top: 2rem;
+  width: 200px;
+  accent-color: yellow;
 }
 
+.slider + p {
+  margin-left: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
 .app-container {
-  width: max-content;
+  width: 100%;
 }
 
 .button {
-  border: 1px solid black;
-  padding: 5px 10px;
-  margin-inline: 5px;
+  background-color: #ff8a65;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  background-color: #ff7043;
+  transform: translateY(-2px);
 }
 
 .buttons {
