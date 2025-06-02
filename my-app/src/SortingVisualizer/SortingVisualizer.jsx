@@ -29,14 +29,21 @@ export default class SortingVisualizer extends React.Component {
     for (let i = 0; i < length; i++) {
       arr.push(randomInt(8, 800));
     }
-    this.setState({ arr });
+    this.setState({ arr }, () => {
+      const arrayBars = document.getElementsByClassName("array-bar");
+      for (let bar of arrayBars) {
+        bar.style.backgroundColor = "#42a5f5";
+      }
+    });
   }
 
   mergeSort() {
     if (this.state.isAnimating) return;
     const animations = getSortAnimations(this.state.arr, mergeSort);
     this.setState({ isAnimating: true }, () => {
-      animate(animations, () => this.setState({ isAnimating: false }));
+      animate(animations, () => {
+        this.setState({ isAnimating: false, arr: this.state.arr });
+      });
     });
   }
 
@@ -120,6 +127,7 @@ export default class SortingVisualizer extends React.Component {
               style={{
                 height: `${val}px`,
                 width: `${barWidth}px`,
+                backgroundColor: "#42a5f5",
               }}
             ></div>
           ))}
@@ -135,7 +143,7 @@ function randomInt(min, max) {
 
 function animate(animations, onComplete) {
   const arrayBars = document.getElementsByClassName("array-bar");
-  const ANIMATION_SPEED = 10;
+  const ANIMATION_SPEED = 50;
 
   for (let i = 0; i < animations.length; i++) {
     const animation = animations[i];
@@ -143,18 +151,22 @@ function animate(animations, onComplete) {
 
     if (action === "compare") {
       setTimeout(() => {
-        arrayBars[index1].style.backgroundColor = "red";
-        arrayBars[index2].style.backgroundColor = "red";
+        arrayBars[index1].style.backgroundColor = "#ef5350";
+        arrayBars[index2].style.backgroundColor = "#ef5350";
       }, i * ANIMATION_SPEED);
 
       setTimeout(() => {
-        arrayBars[index1].style.backgroundColor = "paleturquoise";
-        arrayBars[index2].style.backgroundColor = "paleturquoise";
+        arrayBars[index1].style.backgroundColor = "#ffd54f";
+        arrayBars[index2].style.backgroundColor = "#ffd54f";
       }, (i + 1) * ANIMATION_SPEED);
     } else if (action === "overwrite") {
       setTimeout(() => {
         arrayBars[index1].style.height = `${newHeight}px`;
+        arrayBars[index1].style.backgroundColor = "#4caf50";
       }, i * ANIMATION_SPEED);
+      setTimeout(() => {
+        arrayBars[index1].style.backgroundColor = "#ffd54f";
+      }, i * ANIMATION_SPEED + ANIMATION_SPEED / 2);
     }
   }
 
