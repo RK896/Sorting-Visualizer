@@ -9,8 +9,6 @@ This project helps you understand how sorting algorithms like Merge Sort, Quick 
 
 ![Watch the demo video](./assets/demo.gif)
 
-_Replace `YOUR_VIDEO_ID` with your YouTube video ID or link to a GIF or hosted video._ 🎞️
-
 ---
 
 ## 🚀 Features
