@@ -34,19 +34,23 @@ export function selectionSort(arr, animations) {
   let n = arr.length;
   const auxArray = arr.slice();
 
-  for (let i = n - 1; i >= 0; i--) {
-    for (let j = n - 1; j > n - i - 1; j--) {
-      animations.push(["compare", j, j - 1]);
+  for (let i = 0; i < n - 1; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < n; j++) {
+      animations.push(["compare", j, minIndex]);
 
-      if (auxArray[j] < auxArray[j - 1]) {
-        let temp = auxArray[j - 1];
-        auxArray[j - 1] = auxArray[j];
-        auxArray[j] = temp;
+      if (auxArray[j] < auxArray[minIndex]) {
+        minIndex = j;
       }
-
-      animations.push(["overwrite", j, null, auxArray[j]]);
-      animations.push(["overwrite", j - 1, null, auxArray[j - 1]]);
     }
+    if (minIndex != i) {
+      let temp = auxArray[i];
+      auxArray[i] = auxArray[minIndex];
+      auxArray[minIndex] = temp;
+    }
+
+    animations.push(["overwrite", i, null, auxArray[i]]);
+    animations.push(["overwrite", minIndex, null, auxArray[minIndex]]);
   }
 }
 
