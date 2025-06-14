@@ -7,9 +7,9 @@ This project helps you understand how sorting algorithms like Merge Sort, Quick 
 
 ## 🎬 Demo
 
-[![Watch the demo video](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://youtu.be/YOUR_VIDEO_ID)
+![Watch the demo video](./assets/demo.gif)
 
-*Replace `YOUR_VIDEO_ID` with your YouTube video ID or link to a GIF or hosted video.* 🎞️
+_Replace `YOUR_VIDEO_ID` with your YouTube video ID or link to a GIF or hosted video._ 🎞️
 
 ---
 
